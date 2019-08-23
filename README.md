@@ -1,0 +1,3 @@
+# EXPRESS FLASH CARDS
+
+Express Flash Cards is a web application built using node and express javascript. The app accepts the name of the user and it greets them. From the homepage you can launch a flash card study session, the app will give you flash cards in a random order. You can flip them front to back and back again. Clicking Next shows the next card. Finally, a user can clear their name from the site. While building this flash card app, you'll learn the nuts and bolts to building any web application. This course will cover how to install Express, and get a basic Hello World application running.
