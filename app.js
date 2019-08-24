@@ -1,7 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-// const colors = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple' ];
 
+app.use(bodyParser.urlencoded({ extended: false }));
 // Using the app.set method to set the view engine,To the parameter pug.
 // The app.set method defines different settings in Express.
 app.set('view engine', 'pug');
@@ -34,6 +35,19 @@ app.get('/cards', (req, res) => {
 	/* res.render('card',{
 	 		prompt: 'Express is great for building Restful services. Also, called Restful api. What is restful api?'
      }*/
+});
+
+// get request >>> hello template/module (hello.pug)
+
+app.get('/hello', (req, res) => {
+	res.render('hello');
+});
+
+// post request >>> hello template/module (hello.pug)
+
+app.post('/hello', (req, res) => {
+	console.dir(req.body);
+	res.render('hello', { name: req.body.username });
 });
 
 //set up the development server using the listen method. the single parameter is the port #

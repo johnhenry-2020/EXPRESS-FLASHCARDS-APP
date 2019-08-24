@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+  section#content
+  if name
+    h2 Welcome, #{name.toUpperCase()}!
+  else
+    form(action="/hello", method="POST")
+      label Please Enter Your Name:
+        input(type="text", name="username")
+      button(type="submit") Submit
