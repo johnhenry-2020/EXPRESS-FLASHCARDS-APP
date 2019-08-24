@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+// const colors = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple' ];
 
 // Using the app.set method to set the view engine,To the parameter pug.
 // The app.set method defines different settings in Express.
@@ -17,9 +18,22 @@ app.get('/', (req, res) => {
 	res.render('index');
 });
 
-app.get('/hello', (req, res) => {
-	// SEND METHOD is used for route paths based on strings. Ideal method to SENDing a simple string as a response
-	res.send('<h1>Hello Friend!</h1>');
+// card module (card.pug)
+app.get('/cards', (req, res) => {
+	// rendering the individuals cards to the template
+
+	// creating a variable on the h2
+	res.locals.prompt =
+		'Express is great for building Restful services. Also, called Restful api. What is restful api?';
+	// creating a variable on the h2
+	res.locals.hint = 'Something clever';
+	// res.locals.colors = colors;
+	res.render('card');
+
+	// the following block of code can accomplish the same task as res.locals.prompt found above the res.render('card'); statement
+	/* res.render('card',{
+	 		prompt: 'Express is great for building Restful services. Also, called Restful api. What is restful api?'
+     }*/
 });
 
 //set up the development server using the listen method. the single parameter is the port #
