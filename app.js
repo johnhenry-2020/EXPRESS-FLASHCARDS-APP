@@ -1,25 +1,35 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 // Using the app.set method to set the view engine,To the parameter pug.
 // The app.set method defines different settings in Express.
 app.set('view engine', 'pug');
 // This line, tells Express which template engine to use.By default, Express will look in a folder called Views in the root of your project.
 
-//create route(s)
+// SYNTAX CREATE ROUTE(s) >>> .get(location parameter, anonymous-callback-function(request-object, response-object)=>{})
 
-// .get(location parameter, anonymous-callback-function(request-object, response-object)=>{})
-
-//root route
+/*==============
+	root route
+==============*/
 app.get('/', (req, res) => {
 	// Render method renders a file in the views folder and sends the rendered HTML to the client
 	// The view argument is a string that is the file path of the view file to render.
-	res.render('index');
+	const name = req.cookies.username;
+	if (name) {
+		res.render('index', { name: name });
+	} else {
+		res.redirect('/hello');
+	}
 });
 
-// card module (card.pug)
+/*=============================
+	card route/module (card.pug)
+===============================*/
 app.get('/cards', (req, res) => {
 	// rendering the individuals cards to the template
 
@@ -37,20 +47,29 @@ app.get('/cards', (req, res) => {
      }*/
 });
 
-// get request >>> hello template/module (hello.pug)
-
+/*=================================================
+	GET request >>> hello template/module (hello.pug)
+==================================================*/
 app.get('/hello', (req, res) => {
-	res.render('hello');
+	const name = req.cookies.username;
+	if (name) {
+		res.redirect('/');
+	} else {
+		res.redirect('hello');
+	}
 });
 
-// post request >>> hello template/module (hello.pug)
-
+/*=================================================
+	POST request >>> hello template/module (hello.pug)
+==================================================*/
 app.post('/hello', (req, res) => {
-	console.dir(req.body);
-	res.render('hello', { name: req.body.username });
+	res.cookie('username', req.body.username);
+	res.redirect('/');
 });
 
-//set up the development server using the listen method. the single parameter is the port #
+/*=========================================================================================
+	set up the development server using the listen method. the single parameter is the port #
+/*=================================================/*======================================*/
 app.listen(3000, () => {
 	console.log('The Application is running on local host 3000!');
 });
