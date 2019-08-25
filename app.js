@@ -8,6 +8,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'pug');
 
+/*=========================================================
+	MIDDLEWARE (runs every time a request comes into the app)
+===========================================================*/
+app.use((req, res, next) => {
+	console.log('Hello');
+	const err = new Error('Welp, that sucks...');
+	err.status = 500;
+	next(err);
+});
+
+app.use((req, res, next) => {
+	console.log('World');
+	next();
+});
+
 /*==============
 	root route
 ==============*/
@@ -51,11 +66,26 @@ app.post('/hello', (req, res) => {
 });
 
 /*=================================================
-	POST request >>> GOODBYE template/module (hello.pug)
+	POST request >>> GOODBYE
 ==================================================*/
 app.post('/goodbye', (req, res) => {
 	res.clearCookie('username');
 	res.redirect('hello');
+});
+
+app.use((req, res, next) => {
+	const err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+
+/*================
+	ERROR HANDLER
+=================*/
+app.use((err, req, res, next) => {
+	res.locals.error = err;
+	res.status(err.status);
+	res.render('error');
 });
 
 /*=========================================================================================
