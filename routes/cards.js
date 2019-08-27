@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const { data } = require('../data/flashcardData.json');
+const { cards } = data;
 
 // /*=============================
-// 	card route/module (card.pug)
+// 	card route/module
 // ===============================*/
-router.get('/', (req, res) => {
-	res.locals.prompt =
-		'Express is great for building Restful services. Also, called Restful api. What is restful api?';
-	res.locals.hint = 'Something clever';
-	res.render('card');
+router.get('/:id', (req, res) => {
+	res.render('card', {
+		prompt: cards[req.params.id].question,
+		hint: cards[req.params.id].hint
+	});
 });
 
 module.exports = router;
