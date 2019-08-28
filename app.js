@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+// const favicon = require('serve-favicon');
+// const path = require('path');
 
 const app = express();
 
@@ -8,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static('public'));
 app.set('view engine', 'pug');
+// app.use(favicon(path.join(__dirname, 'public', 'jj-favicon.png')));
 
 const mainRoutes = require('./routes');
 const cardRoutes = require('./routes/cards');
