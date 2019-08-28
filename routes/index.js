@@ -13,16 +13,6 @@ router.get('/', (req, res) => {
 	}
 });
 
-// /*=============================
-// 	card route/module (card.pug)
-// ===============================*/
-// router.get('/cards', (req, res) => {
-// 	res.locals.prompt =
-// 		'Express is great for building Restful services. Also, called Restful api. What is restful api?';
-// 	res.locals.hint = 'Something clever';
-// 	res.render('card');
-// });
-
 /*=================================================
 	GET request >>> hello template/module (hello.pug)
 ==================================================*/
